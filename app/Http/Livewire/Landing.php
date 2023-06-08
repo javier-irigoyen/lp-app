@@ -8,17 +8,24 @@ use App\Models\Lead;
 class Landing extends Component
 {
     public $name;
-    public $lastname;
+    public $last_name;
     public $email;
     public $phone;
     public $registrationSuccessful = false;
     protected function rules()
     {
         return [
-            'name' => 'required | string | max:30',
-            'lastname' => 'required |string | max:30',
-            'email' => 'required | email | max:30',
+            'name' => 'required | regex:/^[a-zA-Z\s]+$/ | max:60',
+            'last_name' => 'required |regex:/^[a-zA-Z\s]+$/ | max:60',
+            'email' => 'required | email | max:60 | unique:leads',
             'phone' => 'required | numeric | min_digits:9 | max_digits:12',
+        ];
+    }
+    protected function messages()
+    {
+        return [
+        'name.regex' => 'El campo :attribute solo puede contener letras y espacios.',
+        'last_name.regex' => 'El campo :attribute solo puede contener letras y espacios.',
         ];
     }
     public function updatedName()
@@ -27,7 +34,7 @@ class Landing extends Component
     }
     public function updatedLastName()
     {
-        $this->validateOnly('lastname');
+        $this->validateOnly('last_name');
     }
     public function updatedEmail()
     {
@@ -42,11 +49,12 @@ class Landing extends Component
         $this->validate();
         Lead::create([
             'name'      => $this->name,
-            'lastname'  => $this->lastname,
+            'last_name'  => $this->last_name,
             'email'     => $this->email,
             'phone'     => $this->phone,
         ]);
         $this->registrationSuccessful = true;
+        // return redirect()->to('/');
     }
     public function render()
     {

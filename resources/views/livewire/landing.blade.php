@@ -39,8 +39,8 @@
                             <x-input.group label="Nombres:" for="name" :error="$errors->first('name')">
                                 <x-input.text wire:model="name" :error="$errors->first('name')" id="name" />
                             </x-input.group>
-                            <x-input.group label="Apellidos:" for="lastname" :error="$errors->first('lastname')">
-                                <x-input.text wire:model="lastname" :error="$errors->first('lastname')" id="lastname" />
+                            <x-input.group label="Apellidos:" for="last_name" :error="$errors->first('last_name')">
+                                <x-input.text wire:model="last_name" :error="$errors->first('last_name')" id="last_name" />
                             </x-input.group>
                             <x-input.group label="Email:" for="email" :error="$errors->first('email')">
                                 <x-input.text wire:model="email" :error="$errors->first('email')" id="email" />
